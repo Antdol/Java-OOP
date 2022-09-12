@@ -6,14 +6,11 @@ class Patient {
     private double hauteur;
 
     public void init(double m, double h) {
-        if (m > 0) {
+        if (m > 0 && h > 0) {
             masse = m;
-        } else {
-            masse = 0.0;
-        }
-        if (h > 0) {
             hauteur = h;
         } else {
+            masse = 0.0;
             hauteur = 0.0;
         }
     }
