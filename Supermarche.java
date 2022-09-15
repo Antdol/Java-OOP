@@ -16,9 +16,47 @@ class Caisse {
   }
 
   public void scanner(Caddie caddie) {
+    // variables pour stocker le contenu du caddie
     ArrayList<Article> contenu = caddie.getContenu();
     ArrayList<Integer> quantite = caddie.getNombre();
+    double montant = 0.0;
     
+    // afficher l'entete du ticket de caisse
+    System.out.println("=========================================");
+    Date dateCourante = new Date();
+    SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yy");
+    System.out.println(formatDate.format(dateCourante));
+    System.out.println("Caisse numero " + numero + "\n");
+
+    //afficher la liste des achats
+    while (contenu.size() != 0) {
+      Article article = contenu.get(0);
+      int nombre = quantite.get(0);
+      System.out.print(article.getNom() + " : " + article.getPrix() + " x " + nombre + " = ");
+      double prixSolde = article.getPrix() * nombre / 2;
+      double prixNonSolde = article.getPrix() * nombre;                     
+      if (article.getEnSolde()) {
+        System.out.println(prixSolde + " Frs (1/2 prix)");
+        montant += prixSolde;
+      } else {
+        System.out.println(prixNonSolde + " Frs");
+        montant += prixNonSolde;
+      }
+      
+      contenu.remove(0);
+      quantite.remove(0);
+    }
+
+    // afficher le montant total et le bas du ticket
+    System.out.println("\nMontant total a payer : " + montant + " Frs");
+    System.out.println("=========================================");
+
+    // mettre à jour la caisse
+    montantTotal += montant;
+  }
+
+  public void totalCaisse() {
+    System.out.println("La caisse numero " + numero + " a encaisse " + montantTotal + " Frs aujourd'hui");
   }
 }
 
